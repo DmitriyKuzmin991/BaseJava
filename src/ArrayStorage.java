@@ -49,11 +49,11 @@ public class ArrayStorage {
                     storage[countResume - 1] = null;
                 }
                 countResume--;
-                System.out.println("Элемент удалён");
+                System.out.println("Резюме удалено");
                 return;
             }
         }
-        System.out.println("Элемент для удаления не найден");
+        System.out.println("Резюме не найденно");
     }
 
     /**
