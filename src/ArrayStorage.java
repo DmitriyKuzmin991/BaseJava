@@ -5,19 +5,19 @@ import java.util.Arrays;
  */
 public class ArrayStorage {
     private final Resume[] storage = new Resume[10000];
-    private int countResume = 0;
+    private int countResumes;
 
     void clear() {
-        for (int i = 0; i < countResume; i++) {
+        for (int i = 0; i < countResumes; i++) {
             storage[i] = null;
         }
-        countResume = 0;
+        countResumes = 0;
         System.out.println("Архив очищен");
     }
 
     void save(Resume r) {
-        if(countResume < storage.length){
-            storage[countResume++] = r;
+        if (countResumes < storage.length) {
+            storage[countResumes++] = r;
             System.out.println("Резюме сохранено");
         } else {
             System.out.println("Резюме не сохранено. Архив полный.");
@@ -25,7 +25,7 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-        for (int i = 0; i < countResume; i++) {
+        for (int i = 0; i < countResumes; i++) {
             if (storage[i].uuid.equals(uuid)) {
                 return storage[i];
             }
@@ -39,16 +39,15 @@ public class ArrayStorage {
     просто присваеваем на его место null. Иначе меняем ссылку последнему резюме на найденную позицию,
     а последнему элементу присваеваем null.
      */
+    //// 123 213 2444 555 66
     void delete(String uuid) {
-        for (int i = 0; i < countResume; i++) {
+        for (int i = 0; i < countResumes; i++) {
             if (storage[i].uuid.equals(uuid)) {
-                if (countResume == 1 && i == countResume - 1) {
-                    storage[i] = null;
-                } else {
-                    storage[i] = storage[countResume - 1];
-                    storage[countResume - 1] = null;
+                if (countResumes != 1 && i != countResumes - 1) {
+                    storage[i] = storage[countResumes - 1];
                 }
-                countResume--;
+                storage[countResumes - 1] = null;
+                countResumes--;
                 System.out.println("Резюме удалено");
                 return;
             }
@@ -60,10 +59,10 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        return Arrays.copyOf(storage, countResume);
+        return Arrays.copyOf(storage, countResumes);
     }
 
     int size() {
-        return countResume;
+        return countResumes;
     }
 }
