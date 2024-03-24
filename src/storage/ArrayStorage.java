@@ -18,12 +18,17 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        if (countResumes < storage.length) {
-            storage[countResumes++] = r;
-            System.out.println("Резюме сохранено");
+        if (get(r.getUuid()) == null) {
+            if (countResumes < storage.length) {
+                storage[countResumes++] = r;
+                System.out.println("Резюме с id: " + r.getUuid() + " сохранено");
+            } else {
+                System.out.println("Резюме с id: " + r.getUuid() + " не сохранено. Архив полный.");
+            }
         } else {
-            System.out.println("Резюме не сохранено. Архив полный.");
+            System.out.println("Резюме с id: " + r.getUuid() + " уже есть в архиве");
         }
+
     }
 
     Resume get(String uuid) {
