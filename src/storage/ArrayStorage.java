@@ -8,7 +8,7 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private final Resume[] storage = new Resume[10000];
+    private final Resume[] storage = new Resume[10];
     private int countResumes;
 
     void clear() {
@@ -43,7 +43,6 @@ public class ArrayStorage {
     просто присваеваем на его место null. Иначе меняем ссылку последнему резюме на найденную позицию,
     а последнему элементу присваеваем null.
      */
-    //// 123 213 2444 555 66
     void delete(String uuid) {
         for (int i = 0; i < countResumes; i++) {
             if (storage[i].getUuid().equals(uuid)) {
@@ -52,11 +51,22 @@ public class ArrayStorage {
                 }
                 storage[countResumes - 1] = null;
                 countResumes--;
-                System.out.println("Резюме удалено");
+                System.out.println("Резюме с id: " + uuid + " удалено");
                 return;
             }
         }
-        System.out.println("Резюме не найденно");
+        System.out.println("Резюме с id: " + uuid + " не найденно");
+    }
+
+    void update(Resume resume) {
+        for (int i = 0; i < countResumes; i++) {
+            if (storage[i].getUuid().equals(resume.getUuid())) {
+                storage[i] = resume;
+                System.out.println("Резюме с id: " + resume.getUuid() + " обновленно");
+                return;
+            }
+        }
+        System.out.println("Резюме с id: " + resume.getUuid() + " не найденно");
     }
 
     /**
