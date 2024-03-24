@@ -1,3 +1,7 @@
+package storage;
+
+import model.Resume;
+
 import java.util.Arrays;
 
 /**
@@ -26,7 +30,7 @@ public class ArrayStorage {
 
     Resume get(String uuid) {
         for (int i = 0; i < countResumes; i++) {
-            if (storage[i].uuid.equals(uuid)) {
+            if (storage[i].getUuid().equals(uuid)) {
                 return storage[i];
             }
         }
@@ -42,7 +46,7 @@ public class ArrayStorage {
     //// 123 213 2444 555 66
     void delete(String uuid) {
         for (int i = 0; i < countResumes; i++) {
-            if (storage[i].uuid.equals(uuid)) {
+            if (storage[i].getUuid().equals(uuid)) {
                 if (countResumes != 1 && i != countResumes - 1) {
                     storage[i] = storage[countResumes - 1];
                 }
