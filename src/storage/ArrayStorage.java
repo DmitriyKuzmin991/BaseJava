@@ -12,9 +12,7 @@ public class ArrayStorage {
     private int countResumes;
 
     void clear() {
-        for (int i = 0; i < countResumes; i++) {
-            storage[i] = null;
-        }
+        Arrays.fill(storage, 0, countResumes, null);
         countResumes = 0;
         System.out.println("Архив очищен");
     }
