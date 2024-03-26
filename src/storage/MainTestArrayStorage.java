@@ -39,16 +39,16 @@ public class MainTestArrayStorage {
         ARRAY_STORAGE.save(r4);
         System.out.println();
 
-        System.out.println("Проверка переполнения архива");
-        Resume[] resumes = new Resume[8];
-        for (int i = 0; i < resumes.length; i++) {
-            resumes[i] = new Resume();
-            resumes[i].setUuid("uuid" + (i + 5));
-        }
-        for (Resume r : resumes) {
-            ARRAY_STORAGE.save(r);
-        }
-        System.out.println();
+//        System.out.println("Проверка переполнения архива");
+//        Resume[] resumes = new Resume[8];
+//        for (int i = 0; i < resumes.length; i++) {
+//            resumes[i] = new Resume();
+//            resumes[i].setUuid("uuid" + (i + 5));
+//        }
+//        for (Resume r : resumes) {
+//            ARRAY_STORAGE.save(r);
+//        }
+//        System.out.println();
 
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
         System.out.println("Size: " + ARRAY_STORAGE.size());
