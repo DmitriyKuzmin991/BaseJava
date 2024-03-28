@@ -1,6 +1,5 @@
-package storage;
-
 import model.Resume;
+import storage.ArrayStorage;
 
 /**
  * Test for your storage.ArrayStorage implementation
