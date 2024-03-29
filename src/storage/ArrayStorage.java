@@ -2,18 +2,10 @@ package storage;
 
 import model.Resume;
 
-import java.util.Arrays;
-
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage extends AbstractArrayStorage {
-    public void clear() {
-        Arrays.fill(storage, 0, countResumes, null);
-        countResumes = 0;
-        System.out.println("Архив очищен");
-    }
-
     public void save(Resume r) {
         int index = getIndex(r.getUuid());
         if (storage.length == countResumes) {
@@ -37,27 +29,6 @@ public class ArrayStorage extends AbstractArrayStorage {
         } else {
             System.out.println("Резюме с id: " + uuid + " не найденно");
         }
-    }
-
-    public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (isExisted(index)) {
-            storage[index] = resume;
-            System.out.println("Резюме с id: " + resume.getUuid() + " обновленно");
-        } else {
-            System.out.println("Резюме с id: " + resume.getUuid() + " не найденно");
-        }
-    }
-
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, countResumes);
-    }
-
-    public int size() {
-        return countResumes;
     }
 
     protected int getIndex(String uuid) {
