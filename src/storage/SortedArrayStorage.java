@@ -6,35 +6,21 @@ import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
-    public void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (storage.length == countResumes) {
-            System.out.println("Сохранить не удалось. Архив полон.");
-        } else if (index > 0) {
-            System.out.println("Резюме с id: " + resume.getUuid() + " уже есть в архиве");
-        } else {
-            index = Math.abs(index);
-            int insertPosition = index - 1;
-            if (index <= countResumes) {
-                System.arraycopy(storage, insertPosition, storage, index, (countResumes - insertPosition));
-            }
-            storage[insertPosition] = resume;
-            countResumes++;
-            System.out.println("Резюме с id: " + resume.getUuid() + " сохранено");
+    protected void add(int index, Resume resume) {
+        index = Math.abs(index);
+        int insertPosition = index - 1;
+        if (index <= countResumes) {
+            System.arraycopy(storage, insertPosition, storage, index, (countResumes - insertPosition));
         }
+        storage[insertPosition] = resume;
+        countResumes++;
     }
 
     @Override
-    public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (!isExisted(index)) {
-            System.out.println("Резюме с id: " + uuid + " не найденно");
-        } else {
-            index = Math.abs(index);
-            System.arraycopy(storage, index + 1, storage, index, (countResumes - index));
-            System.out.println("Резюме с id: " + uuid + " удалено");
-            countResumes--;
-        }
+    protected void remove(int index) {
+        index = Math.abs(index);
+        System.arraycopy(storage, index + 1, storage, index, (countResumes - index));
+        countResumes--;
     }
 
     @Override
