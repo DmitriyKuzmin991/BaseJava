@@ -1,12 +1,16 @@
 package model;
 
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Initial resume class
  */
 public class Resume implements Comparable<Resume> {
     private final String uuid;
+    public Resume() {
+        this(UUID.randomUUID().toString());
+    }
 
     public Resume(String uuid) {
         this.uuid = uuid;
