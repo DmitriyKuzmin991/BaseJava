@@ -14,39 +14,33 @@ public abstract class AbstractArrayStorage implements Storage {
         int index = getIndex(resume.getUuid());
         if (countResumes >= STORAGE_LIMIT) {
             System.out.println("Сохранить не удалось. Архив полон.");
-        } else if (isExisted(index)) {
+        } else if (isExisting(index)) {
             System.out.println("Резюме с id: " + resume.getUuid() + " уже есть в архиве");
         } else {
-            add(index, resume);
+            insertResume(index, resume);
             System.out.println("Резюме с id: " + resume.getUuid() + " сохранено");
         }
     }
 
     public final void delete(String uuid) {
         int index = getIndex(uuid);
-        if (!isExisted(index)) {
+        if (!isExisting(index)) {
             System.out.println("Резюме с id: " + uuid + " не найденно");
         } else {
-            remove(index);
+            removeResume(index);
             System.out.println("Резюме с id: " + uuid + " удалено");
         }
     }
 
     public final void update(Resume resume) {
         int index = getIndex(resume.getUuid());
-        if (isExisted(index)) {
+        if (isExisting(index)) {
             storage[index] = resume;
             System.out.println("Резюме с id: " + resume.getUuid() + " обновленно");
         } else {
             System.out.println("Резюме с id: " + resume.getUuid() + " не найденно");
         }
     }
-
-    protected abstract void add(int index, Resume resume);
-
-    protected abstract void remove(int index);
-
-    protected abstract int getIndex(String uuid);
 
     public final void clear() {
         Arrays.fill(storage, 0, countResumes, null);
@@ -60,7 +54,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public final Resume get(String uuid) {
         int index = getIndex(uuid);
-        if (isExisted(index)) {
+        if (isExisting(index)) {
             System.out.println("Резюме с индексом " + uuid + " найдено.");
             return storage[index];
         } else {
@@ -73,7 +67,13 @@ public abstract class AbstractArrayStorage implements Storage {
         return Arrays.copyOf(storage, countResumes);
     }
 
-    protected final boolean isExisted(int index) {
+    protected final boolean isExisting(int index) {
         return index > -1;
     }
+
+    protected abstract void insertResume(int index, Resume resume);
+
+    protected abstract void removeResume(int index);
+
+    protected abstract int getIndex(String uuid);
 }

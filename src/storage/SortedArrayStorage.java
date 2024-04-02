@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
-    protected void add(int index, Resume resume) {
+    protected void insertResume(int index, Resume resume) {
         index = Math.abs(index);
         int insertPosition = index - 1;
         if (index <= countResumes) {
@@ -17,7 +17,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void remove(int index) {
+    protected void removeResume(int index) {
         index = Math.abs(index);
         System.arraycopy(storage, index + 1, storage, index, (countResumes - index));
         countResumes--;

@@ -7,13 +7,13 @@ import model.Resume;
  */
 public class ArrayStorage extends AbstractArrayStorage {
     @Override
-    protected void add(int index, Resume resume) {
+    protected void insertResume(int index, Resume resume) {
         storage[countResumes] = resume;
         countResumes++;
     }
 
     @Override
-    protected void remove(int index) {
+    protected void removeResume(int index) {
         storage[index] = storage[countResumes - 1];
         storage[countResumes - 1] = null;
         countResumes--;
