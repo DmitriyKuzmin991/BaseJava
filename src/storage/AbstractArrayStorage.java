@@ -16,11 +16,10 @@ public abstract class AbstractArrayStorage implements Storage {
     public final void save(Resume resume) {
         int index = getIndex(resume.getUuid());
         if (countResumes >= STORAGE_LIMIT) {
-            throw new StorageException("Сохранить " +resume.getUuid() + " не удалось. Архив полон.",
+            throw new StorageException("Сохранить " + resume.getUuid() + " не удалось. Архив полон.",
                     resume.getUuid());
         } else if (isExisting(index)) {
-            throw new ExistStorageException("Резюме с id: " + resume.getUuid() + " уже есть в архиве",
-                    resume.getUuid());
+            throw new ExistStorageException(resume.getUuid());
         } else {
             insertResume(index, resume);
             countResumes++;
@@ -31,7 +30,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public final void delete(String uuid) {
         int index = getIndex(uuid);
         if (!isExisting(index)) {
-            throw new NotExistStorageException("Резюме с id: " + uuid + " не найденно", uuid);
+            throw new NotExistStorageException(uuid);
         } else {
             removeResume(index);
             countResumes--;
@@ -45,7 +44,7 @@ public abstract class AbstractArrayStorage implements Storage {
             storage[index] = resume;
             System.out.println("Резюме с id: " + resume.getUuid() + " обновленно");
         } else {
-            throw new NotExistStorageException("Резюме с id: " + resume.getUuid() + " не найденно", resume.getUuid());
+            throw new NotExistStorageException(resume.getUuid());
         }
     }
 
@@ -65,7 +64,7 @@ public abstract class AbstractArrayStorage implements Storage {
             System.out.println("Резюме с индексом " + uuid + " найдено.");
             return storage[index];
         } else {
-            throw new NotExistStorageException("Резюме с id: " + uuid + " не найденно", uuid);
+            throw new NotExistStorageException(uuid);
         }
     }
 
