@@ -9,14 +9,12 @@ public class ArrayStorage extends AbstractArrayStorage {
     @Override
     protected void insertResume(int index, Resume resume) {
         storage[countResumes] = resume;
-        countResumes++;
     }
 
     @Override
     protected void removeResume(int index) {
         storage[index] = storage[countResumes - 1];
         storage[countResumes - 1] = null;
-        countResumes--;
     }
 
     protected int getIndex(String uuid) {

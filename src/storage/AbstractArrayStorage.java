@@ -18,6 +18,7 @@ public abstract class AbstractArrayStorage implements Storage {
             System.out.println("Резюме с id: " + resume.getUuid() + " уже есть в архиве");
         } else {
             insertResume(index, resume);
+            countResumes++;
             System.out.println("Резюме с id: " + resume.getUuid() + " сохранено");
         }
     }
@@ -28,6 +29,7 @@ public abstract class AbstractArrayStorage implements Storage {
             System.out.println("Резюме с id: " + uuid + " не найденно");
         } else {
             removeResume(index);
+            countResumes--;
             System.out.println("Резюме с id: " + uuid + " удалено");
         }
     }
