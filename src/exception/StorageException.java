@@ -1,7 +1,14 @@
 package exception;
 
 public class StorageException extends RuntimeException {
-    public StorageException(String message) {
+    private final String uuid;
+
+    public StorageException(String message, String uuid) {
         super(message);
+        this.uuid = uuid;
+    }
+
+    String getUuid() {
+        return uuid;
     }
 }
