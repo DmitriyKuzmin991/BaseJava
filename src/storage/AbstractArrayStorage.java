@@ -1,5 +1,8 @@
 package storage;
 
+import exception.ExistStorageException;
+import exception.NotExistStorageException;
+import exception.StorageException;
 import model.Resume;
 
 import java.util.Arrays;
@@ -13,9 +16,11 @@ public abstract class AbstractArrayStorage implements Storage {
     public final void save(Resume resume) {
         int index = getIndex(resume.getUuid());
         if (countResumes >= STORAGE_LIMIT) {
-            System.out.println("Сохранить не удалось. Архив полон.");
+            throw new StorageException("Сохранить " +resume.getUuid() + " не удалось. Архив полон.",
+                    resume.getUuid());
         } else if (isExisting(index)) {
-            System.out.println("Резюме с id: " + resume.getUuid() + " уже есть в архиве");
+            throw new ExistStorageException("Резюме с id: " + resume.getUuid() + " уже есть в архиве",
+                    resume.getUuid());
         } else {
             insertResume(index, resume);
             countResumes++;
@@ -26,7 +31,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public final void delete(String uuid) {
         int index = getIndex(uuid);
         if (!isExisting(index)) {
-            System.out.println("Резюме с id: " + uuid + " не найденно");
+            throw new NotExistStorageException("Резюме с id: " + uuid + " не найденно", uuid);
         } else {
             removeResume(index);
             countResumes--;
@@ -40,7 +45,7 @@ public abstract class AbstractArrayStorage implements Storage {
             storage[index] = resume;
             System.out.println("Резюме с id: " + resume.getUuid() + " обновленно");
         } else {
-            System.out.println("Резюме с id: " + resume.getUuid() + " не найденно");
+            throw new NotExistStorageException("Резюме с id: " + resume.getUuid() + " не найденно", resume.getUuid());
         }
     }
 
@@ -60,8 +65,7 @@ public abstract class AbstractArrayStorage implements Storage {
             System.out.println("Резюме с индексом " + uuid + " найдено.");
             return storage[index];
         } else {
-            System.out.println("Резюме с индексом " + uuid + " не найдено.");
-            return null;
+            throw new NotExistStorageException("Резюме с id: " + uuid + " не найденно", uuid);
         }
     }
 
