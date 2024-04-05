@@ -32,9 +32,13 @@ abstract class AbstractArrayStorageTest {
 
     @Test
     protected void storageOverflowException() {
-        for (int i = 2; i < 10001; i++) {
-            storage.save(new Resume("uuid" + i));
-        }
+        Assertions.assertDoesNotThrow(() -> {
+                    for (int i = 2; i < 10001; i++) {
+                        storage.save(new Resume("uuid" + i));
+                    }
+                }
+                , "Переполнение произошло раньше времени."
+        );
         Assertions.assertThrows(StorageException.class, () -> storage.save(new Resume("uuid10003")));
     }
 
