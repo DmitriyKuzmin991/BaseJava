@@ -23,8 +23,8 @@ abstract class AbstractArrayStorageTest {
     protected static final Resume RESUME_3 = new Resume(UUID3);
     protected static final Resume RESUME_4 = new Resume(UUID4);
 
-    public AbstractArrayStorageTest(Storage st) {
-        storage = st;
+    public AbstractArrayStorageTest(Storage storage) {
+        this.storage = storage;
     }
 
     @BeforeEach
@@ -38,8 +38,8 @@ abstract class AbstractArrayStorageTest {
     @Test
     protected void save() {
         storage.save(RESUME_4);
-        Assertions.assertTrue(assertSize(4));
-        Assertions.assertTrue(assertGet(RESUME_4));
+        assertSize(4);
+        assertGet(RESUME_4);
     }
 
     @Test
@@ -63,7 +63,7 @@ abstract class AbstractArrayStorageTest {
     @Test
     protected void delete() {
         storage.delete(UUID3);
-        Assertions.assertTrue(assertSize(2));
+        assertSize(2);
         Assertions.assertThrows(NotExistStorageException.class, () -> storage.get(UUID3));
     }
 
@@ -89,21 +89,21 @@ abstract class AbstractArrayStorageTest {
         storage.clear();
         Resume[] actual = storage.getAll();
         Resume[] expected = new Resume[0];
-        Assertions.assertTrue(assertSize(0));
+        assertSize(0);
         Assertions.assertArrayEquals(actual, expected);
     }
 
     @Test
     protected void size() {
-        Assertions.assertTrue(assertSize(3));
+        assertSize(3);
     }
 
     @Test
     protected void get() {
         Assertions.assertAll(
-                () -> Assertions.assertTrue(assertGet(RESUME_1)),
-                () -> Assertions.assertTrue(assertGet(RESUME_2)),
-                () -> Assertions.assertTrue(assertGet(RESUME_3))
+                () -> assertGet(RESUME_1),
+                () -> assertGet(RESUME_2),
+                () -> assertGet(RESUME_3)
         );
     }
 
@@ -119,12 +119,12 @@ abstract class AbstractArrayStorageTest {
         Assertions.assertArrayEquals(actual, expected);
     }
 
-    private boolean assertSize(int size) {
-        return storage.size() == size;
+    private void assertSize(int size) {
+        Assertions.assertEquals(storage.size(), size);
     }
 
-    private boolean assertGet(Resume resume) {
-        Resume actual = storage.get(resume.getUuid());
-        return resume.equals(actual);
+    private void assertGet(Resume resume) {
+        Resume expected = storage.get(resume.getUuid());
+        Assertions.assertEquals(expected, resume);
     }
 }
