@@ -7,6 +7,7 @@ import java.util.Arrays;
 public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
     protected void insertResume(int index, Resume resume) {
+        checkLimit(resume.getUuid());
         int insertPosition = -index - 1;
         if (insertPosition < countResumes) {
             System.arraycopy(storage, insertPosition, storage, insertPosition + 1, (countResumes - insertPosition));

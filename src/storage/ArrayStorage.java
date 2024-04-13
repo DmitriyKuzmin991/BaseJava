@@ -8,6 +8,7 @@ import model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
     @Override
     protected void insertResume(int index, Resume resume) {
+        checkLimit(resume.getUuid());
         storage[countResumes] = resume;
         countResumes++;
     }

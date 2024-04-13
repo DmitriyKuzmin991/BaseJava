@@ -9,7 +9,6 @@ public abstract class AbstractStorage implements Storage {
     public final void save(Resume resume) {
         String uuid = resume.getUuid();
         int index = getIndex(uuid);
-        checkLimit(uuid);
         if (isExisting(index)) {
             throw new ExistStorageException(uuid);
         } else {
@@ -64,7 +63,4 @@ public abstract class AbstractStorage implements Storage {
     protected abstract void removeResume(int index);
 
     protected abstract int getIndex(String uuid);
-
-    protected abstract void checkLimit(String uuid);
 }
-

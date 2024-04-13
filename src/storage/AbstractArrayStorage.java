@@ -21,7 +21,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return countResumes;
     }
 
-    @Override
     protected final void checkLimit(String uuid) {
         if (countResumes >= STORAGE_LIMIT) {
             throw new StorageException("Сохранить " + uuid + " не удалось. Архив полон.",

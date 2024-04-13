@@ -47,8 +47,4 @@ public class ListStorage extends AbstractStorage {
     protected void updateResume(int index, Resume resume) {
         storage.set(index, resume);
     }
-
-    @Override
-    protected void checkLimit(String uuid) {
-    }
 }
