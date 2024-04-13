@@ -1,3 +1,5 @@
+import exception.ExistStorageException;
+import exception.NotExistStorageException;
 import model.Resume;
 import storage.SortedArrayStorage;
 import storage.Storage;
@@ -24,30 +26,49 @@ public class MainTestArrayStorage {
         printAll();
         System.out.println("=====================================================================");
 
-        System.out.println("Проверка update:");
-        ARRAY_STORAGE.update(r4);
-        ARRAY_STORAGE.update(r3);
+        try {
+            System.out.println("Проверка update:");
+            ARRAY_STORAGE.update(r4);
+            ARRAY_STORAGE.update(r3);
+        } catch (NotExistStorageException e) {
+            System.out.println(e.getMessage());
+        }
         System.out.println("=====================================================================");
 
-        System.out.println("Проверка delete:");
-        ARRAY_STORAGE.delete(r4.getUuid());
-        ARRAY_STORAGE.delete(r4.getUuid());
+        try {
+            System.out.println("Проверка delete:");
+            ARRAY_STORAGE.delete(r4.getUuid());
+            ARRAY_STORAGE.delete(r4.getUuid());
+        } catch (NotExistStorageException e) {
+            System.out.println(e.getMessage());
+        }
         System.out.println("=====================================================================");
 
-        System.out.println("Проверка сохранения:");
-        ARRAY_STORAGE.save(r4);
-        ARRAY_STORAGE.save(r4);
+        try {
+            System.out.println("Проверка сохранения:");
+            ARRAY_STORAGE.save(r4);
+            ARRAY_STORAGE.save(r4);
+        } catch (ExistStorageException e) {
+            System.out.println(e.getMessage());
+        }
         System.out.println("=====================================================================");
 
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
         System.out.println("Size: " + ARRAY_STORAGE.size());
-        System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
+
+        try {
+            System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
+        } catch (NotExistStorageException e) {
+            System.out.println(e.getMessage());
+        }
         System.out.println("=====================================================================");
         printAll();
+        System.out.println("=====================================================================");
         ARRAY_STORAGE.delete(r1.getUuid());
         System.out.println("=====================================================================");
         printAll();
         System.out.println("=====================================================================");
+        System.out.println("Вызываем метод clear()");
         ARRAY_STORAGE.clear();
         printAll();
 
