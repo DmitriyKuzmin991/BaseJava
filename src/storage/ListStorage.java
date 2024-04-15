@@ -19,23 +19,23 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume getResume(Object searchKey) {
-        return storage.get((int)searchKey);
+    protected Resume getResume(int index) {
+        return storage.get(index);
     }
 
     @Override
     public Resume[] getAll() {
-        return storage.toArray(new Resume[size()]);
+        return storage.toArray(new Resume[0]);
     }
 
     @Override
-    protected void insertResume(Object searchKey, Resume resume) {
+    protected void insertResume(int index, Resume resume) {
         storage.add(resume);
     }
 
     @Override
-    protected void removeResume(Object searchKey) {
-        storage.remove((int)searchKey);
+    protected void removeResume(int index) {
+        storage.remove(index);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void updateResume(Object searchKey, Resume resume) {
-        storage.set((int)searchKey, resume);
+    protected void updateResume(int index, Resume resume) {
+        storage.set(index, resume);
     }
 }

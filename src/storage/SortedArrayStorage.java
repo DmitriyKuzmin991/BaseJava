@@ -6,9 +6,9 @@ import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
-    protected void insertResume(Object searchKey, Resume resume) {
+    protected void insertResume(int index, Resume resume) {
         checkLimit(resume.getUuid());
-        int insertPosition = -(int)searchKey - 1;
+        int insertPosition = -index - 1;
         if (insertPosition < countResumes) {
             System.arraycopy(storage, insertPosition, storage, insertPosition + 1, (countResumes - insertPosition));
         }
@@ -17,9 +17,9 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void removeResume(Object searchKey) {
-        int position = (int)searchKey;
-        System.arraycopy(storage, position + 1, storage, position, (countResumes - position));
+    protected void removeResume(int index) {
+        index = Math.abs(index);
+        System.arraycopy(storage, index + 1, storage, index, (countResumes - index));
         countResumes--;
     }
 
