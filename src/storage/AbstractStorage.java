@@ -16,7 +16,7 @@ public abstract class AbstractStorage implements Storage {
     @Override
     public final void delete(String uuid) {
         Object searchKey = getIndex(uuid);
-        removeResume(getExistingSearchKey(searchKey, uuid));
+        removeResume(getExistingSearchKey(searchKey, uuid), uuid);
         System.out.println("Резюме с id: " + uuid + " удалено");
     }
 
@@ -31,7 +31,7 @@ public abstract class AbstractStorage implements Storage {
     @Override
     public final Resume get(String uuid) {
         Object searchKey = getIndex(uuid);
-        return getResume(getExistingSearchKey(searchKey, uuid));
+        return getResume(getExistingSearchKey(searchKey, uuid), uuid);
     }
 
     protected final boolean isExisting(int searchKey) {
@@ -56,11 +56,11 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract void updateResume(int index, Resume resume);
 
-    protected abstract Resume getResume(int index);
+    protected abstract Resume getResume(int index, String uuid);
 
     protected abstract void insertResume(int index, Resume resume);
 
-    protected abstract void removeResume(int index);
+    protected abstract void removeResume(int index, String uuid);
 
     protected abstract int getIndex(String uuid);
 }

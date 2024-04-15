@@ -29,7 +29,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected final Resume getResume(int index) {
+    protected final Resume getResume(int index, String uuid) {
         return storage[index];
     }
 
