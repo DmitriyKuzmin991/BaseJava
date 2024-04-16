@@ -8,38 +8,38 @@ public abstract class AbstractStorage implements Storage {
     @Override
     public final void save(Resume resume) {
         String uuid = resume.getUuid();
-        Object searchKey = getSearchKey(uuid);
-        insertResume(getNotExistingSearchKey(searchKey, uuid), resume);
+        Object searchKey = getNotExistingSearchKey(uuid);
+        insertResume(searchKey, resume);
         System.out.println("Резюме с id: " + uuid + " сохранено");
     }
 
     @Override
     public final void delete(String uuid) {
-        Object searchKey = getSearchKey(uuid);
-        removeResume(getExistingSearchKey(searchKey, uuid));
+        Object searchKey = getExistingSearchKey(uuid);
+        removeResume(searchKey);
         System.out.println("Резюме с id: " + uuid + " удалено");
     }
 
     @Override
     public final void update(Resume resume) {
         String uuid = resume.getUuid();
-        Object searchKey = getSearchKey(uuid);
-        updateResume(getExistingSearchKey(searchKey, uuid), resume);
+        Object searchKey = getExistingSearchKey(uuid);
+        updateResume(searchKey, resume);
         System.out.println("Резюме с id: " + uuid + " обновленно");
     }
 
     @Override
     public final Resume get(String uuid) {
-        Object searchKey = getSearchKey(uuid);
-        return getResume(getExistingSearchKey(searchKey, uuid));
+        Object searchKey = getExistingSearchKey(uuid);
+        return getResume(searchKey);
     }
 
     protected boolean isExisting(int searchKey) {
         return searchKey > -1;
     }
 
-    protected Object getExistingSearchKey(Object searchKey, String uuid) {
-        int key = (int) searchKey;
+    protected Object getExistingSearchKey(String uuid) {
+        int key = (int) getSearchKey(uuid);
         if (!isExisting(key)) {
             throw new NotExistStorageException(uuid);
         }
@@ -47,8 +47,8 @@ public abstract class AbstractStorage implements Storage {
     }
 
 
-    protected Object getNotExistingSearchKey(Object searchKey, String uuid) {
-        int key = (int) searchKey;
+    protected Object getNotExistingSearchKey(String uuid) {
+        int key = (int)getSearchKey(uuid);
         if (isExisting(key)) {
             throw new ExistStorageException(uuid);
         }
