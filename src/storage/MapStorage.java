@@ -1,5 +1,7 @@
 package storage;
 
+import exception.ExistStorageException;
+import exception.NotExistStorageException;
 import model.Resume;
 
 import java.util.HashMap;
@@ -9,28 +11,50 @@ public class MapStorage extends AbstractStorage {
     private final Map<String, Resume> storage = new HashMap<>();
 
     @Override
-    protected void insertResume(int index, Resume resume) {
-        storage.put(resume.getUuid(), resume);
+    protected Object getExistingSearchKey(Object searchKey, String uuid) {
+        if (!storage.containsKey(uuid)) {
+            throw new NotExistStorageException(uuid);
+        } else {
+            return uuid;
+        }
     }
 
     @Override
-    protected void updateResume(int index, Resume resume) {
-        storage.put(resume.getUuid(), resume);
+    protected Object getNotExistingSearchKey(Object searchKey, String uuid) {
+        if (storage.containsKey(uuid)) {
+            throw new ExistStorageException(uuid);
+        } else {
+            return uuid;
+        }
     }
 
     @Override
-    protected Resume getResume(int index, String uuid) {
-        return storage.get(uuid);
+    protected void insertResume(Object searchKey, Resume resume) {
+        storage.put((String)searchKey, resume);
+    }
+//    String uuid = resume.getUuid();
+//    Object searchKey = getSearchKey(uuid);
+//    insertResume(getNotExistingSearchKey(searchKey, uuid), resume);
+//        System.out.println("Резюме с id: " + uuid + " сохранено");
+
+    @Override
+    protected void updateResume(Object searchKey, Resume resume) {
+        storage.put((String)searchKey, resume);
     }
 
     @Override
-    protected void removeResume(int index, String uuid) {
-        storage.remove(uuid);
+    protected Resume getResume(Object searchKey) {
+        return storage.get((String)searchKey);
     }
 
     @Override
-    protected int getIndex(String uuid) {
-        return storage.containsKey(uuid) ? 1 : -1;
+    protected void removeResume(Object searchKey) {
+        storage.remove((String)searchKey);
+    }
+
+    @Override
+    protected Object getSearchKey(String uuid) {
+        return uuid;
     }
 
     @Override

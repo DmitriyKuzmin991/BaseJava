@@ -1,5 +1,7 @@
 package storage;
 
+import exception.ExistStorageException;
+import exception.NotExistStorageException;
 import exception.StorageException;
 import model.Resume;
 
@@ -29,15 +31,36 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected final Resume getResume(int index, String uuid) {
+    protected final Resume getResume(Object keySearch) {
+        int index = (int) keySearch;
         return storage[index];
     }
 
     public final Resume[] getAll() {
         return Arrays.copyOf(storage, countResumes);
     }
+
     @Override
-    protected final void updateResume(int index, Resume resume) {
+    protected final void updateResume(Object keySearch, Resume resume) {
+        int index = (int) keySearch;
         storage[index] = resume;
+    }
+
+    @Override
+    protected Object getExistingSearchKey(Object searchKey, String uuid) {
+        int key = (int) searchKey;
+        if (!isExisting(key)) {
+            throw new NotExistStorageException(uuid);
+        }
+        return key;
+    }
+
+    @Override
+    protected Object getNotExistingSearchKey(Object searchKey, String uuid) {
+        int key = (int) searchKey;
+        if (isExisting(key)) {
+            throw new ExistStorageException(uuid);
+        }
+        return key;
     }
 }
