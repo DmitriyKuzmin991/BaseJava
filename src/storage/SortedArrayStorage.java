@@ -19,9 +19,8 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void removeResume(Object searchKey) {
-        int index = (int)searchKey;
-        index = Math.abs(index);
-        System.arraycopy(storage, index + 1, storage, index, (countResumes - index));
+        int positionElement = (int)searchKey;
+        System.arraycopy(storage, positionElement + 1, storage, positionElement, (countResumes - positionElement));
         countResumes--;
     }
 

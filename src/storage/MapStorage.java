@@ -11,20 +11,27 @@ public class MapStorage extends AbstractStorage {
     private final Map<String, Resume> storage = new HashMap<>();
 
     @Override
+    protected boolean isExisting(Object searchKey) {
+        return storage.containsKey((String)searchKey);
+    }
+
+    @Override
     protected Object getExistingSearchKey(String uuid) {
-        if (!storage.containsKey(uuid)) {
+        Object key = getSearchKey(uuid);
+        if (!isExisting(key)) {
             throw new NotExistStorageException(uuid);
         } else {
-            return uuid;
+            return key;
         }
     }
 
     @Override
     protected Object getNotExistingSearchKey(String uuid) {
-        if (storage.containsKey(uuid)) {
+        Object key = getSearchKey(uuid);
+        if (isExisting(key)) {
             throw new ExistStorageException(uuid);
         } else {
-            return uuid;
+            return key;
         }
     }
 

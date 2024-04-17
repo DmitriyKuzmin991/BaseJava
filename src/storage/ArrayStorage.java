@@ -15,8 +15,7 @@ public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void removeResume(Object searchKey) {
-        int index = (int)searchKey;
-        storage[index] = storage[countResumes - 1];
+        storage[(int)searchKey] = storage[countResumes - 1];
         storage[countResumes - 1] = null;
         countResumes--;
     }

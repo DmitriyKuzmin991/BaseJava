@@ -30,8 +30,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected final Resume getResume(Object keySearch) {
-        int index = (int) keySearch;
-        return storage[index];
+        return storage[(int) keySearch];
     }
 
     public final Resume[] getAll() {
@@ -40,7 +39,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected final void updateResume(Object keySearch, Resume resume) {
-        int index = (int) keySearch;
-        storage[index] = resume;
+        storage[(int) keySearch] = resume;
+    }
+
+    @Override
+    protected boolean isExisting(Object searchKey) {
+        return (int)searchKey > -1;
     }
 }
