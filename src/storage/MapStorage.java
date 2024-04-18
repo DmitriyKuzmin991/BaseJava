@@ -1,7 +1,5 @@
 package storage;
 
-import exception.ExistStorageException;
-import exception.NotExistStorageException;
 import model.Resume;
 
 import java.util.HashMap;
@@ -12,27 +10,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected boolean isExisting(Object searchKey) {
-        return storage.containsKey((String)searchKey);
-    }
-
-    @Override
-    protected Object getExistingSearchKey(String uuid) {
-        Object key = getSearchKey(uuid);
-        if (!isExisting(key)) {
-            throw new NotExistStorageException(uuid);
-        } else {
-            return key;
-        }
-    }
-
-    @Override
-    protected Object getNotExistingSearchKey(String uuid) {
-        Object key = getSearchKey(uuid);
-        if (isExisting(key)) {
-            throw new ExistStorageException(uuid);
-        } else {
-            return key;
-        }
+        return storage.containsKey((String) searchKey);
     }
 
     @Override
