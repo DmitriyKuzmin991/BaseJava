@@ -29,15 +29,21 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected final Resume getResume(int index) {
-        return storage[index];
+    protected final Resume getResume(Object keySearch) {
+        return storage[(int) keySearch];
     }
 
     public final Resume[] getAll() {
         return Arrays.copyOf(storage, countResumes);
     }
+
     @Override
-    protected final void updateResume(int index, Resume resume) {
-        storage[index] = resume;
+    protected final void updateResume(Object keySearch, Resume resume) {
+        storage[(int) keySearch] = resume;
+    }
+
+    @Override
+    protected boolean isExisting(Object searchKey) {
+        return (int)searchKey > -1;
     }
 }
