@@ -4,6 +4,9 @@ import exception.ExistStorageException;
 import exception.NotExistStorageException;
 import model.Resume;
 
+import java.util.Comparator;
+import java.util.List;
+
 public abstract class AbstractStorage implements Storage {
     @Override
     public final void save(Resume resume) {
@@ -44,7 +47,6 @@ public abstract class AbstractStorage implements Storage {
         return key;
     }
 
-
     protected Object getNotExistingSearchKey(String uuid) {
         Object key = getSearchKey(uuid);
         if (isExisting(key)) {
@@ -53,7 +55,10 @@ public abstract class AbstractStorage implements Storage {
         return key;
     }
 
-
+    protected List<Resume> sortFullNameAndUuid(List<Resume> resumes) {
+        resumes.sort(Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid));
+        return resumes;
+    }
     protected abstract void updateResume(Object searchKey, Resume resume);
 
     protected abstract Resume getResume(Object searchKey);
