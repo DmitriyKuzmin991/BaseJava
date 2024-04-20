@@ -4,6 +4,7 @@ import exception.StorageException;
 import model.Resume;
 
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
     protected static final int STORAGE_LIMIT = 10000;
@@ -33,8 +34,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return storage[(int) keySearch];
     }
 
-    public final Resume[] getAll() {
-        return Arrays.copyOf(storage, countResumes);
+    @Override
+    public List<Resume> getAllSorted() {
+        return sortFullNameAndUuid(Arrays.asList(Arrays.copyOf(storage, countResumes)));
     }
 
     @Override
@@ -44,6 +46,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected boolean isExisting(Object searchKey) {
-        return (int)searchKey > -1;
+        return (int) searchKey > -1;
     }
 }
