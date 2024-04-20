@@ -7,7 +7,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public abstract class AbstractStorageTest {
@@ -74,10 +75,10 @@ public abstract class AbstractStorageTest {
     @Test
     protected void clear() {
         storage.clear();
-        Resume[] actual = storage.getAll();
-        Resume[] expected = new Resume[0];
+        List<Resume> actual = storage.getAllSorted();
+        List<Resume> expected = new ArrayList<>();
         assertSize(0);
-        Assertions.assertArrayEquals(actual, expected);
+        Assertions.assertEquals(actual, expected);
     }
 
     @Test
@@ -100,11 +101,22 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    protected void getAll() {
-        Resume[] actual = storage.getAll();
-        Arrays.sort(actual);
-        Resume[] expected = new Resume[]{RESUME_1, RESUME_2, RESUME_3};
-        Assertions.assertArrayEquals(expected,actual);
+    protected void getAllSortedTest() {
+        storage.clear();
+        storage.save(new Resume("uuid5", "1"));
+        storage.save(new Resume("uuid6", "3"));
+        storage.save(new Resume("uuid7", "8"));
+        storage.save(new Resume("uuid8", "22"));
+        List<Resume> actual = storage.getAllSorted();
+        System.out.println(actual);
+        List<Resume> expected = List.of(
+                new Resume("uuid5", "1"),
+                new Resume("uuid8", "22"),
+                new Resume("uuid6", "3"),
+                new Resume("uuid7", "8")
+        );
+        System.out.println(expected);
+        Assertions.assertEquals(expected, actual);
     }
 
     private void assertSize(int size) {
