@@ -108,14 +108,12 @@ public abstract class AbstractStorageTest {
         storage.save(new Resume("uuid7", "8"));
         storage.save(new Resume("uuid8", "22"));
         List<Resume> actual = storage.getAllSorted();
-        System.out.println(actual);
         List<Resume> expected = List.of(
                 new Resume("uuid5", "1"),
                 new Resume("uuid8", "22"),
                 new Resume("uuid6", "3"),
                 new Resume("uuid7", "8")
         );
-        System.out.println(expected);
         Assertions.assertEquals(expected, actual);
     }
 

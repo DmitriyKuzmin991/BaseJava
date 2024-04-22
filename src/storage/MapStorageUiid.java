@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MapStorage extends AbstractStorage {
-    private final Map<String, Resume> storage = new HashMap<>();
+public class MapStorageUiid extends AbstractStorage {
+    protected final Map<String, Resume> storage = new HashMap<>();
 
     @Override
     protected boolean isExisting(Object searchKey) {

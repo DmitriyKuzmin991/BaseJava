@@ -1,14 +1,14 @@
 import exception.ExistStorageException;
 import exception.NotExistStorageException;
 import model.Resume;
-import storage.MapStorage;
+import storage.MapStorageUiid;
 import storage.Storage;
 
 /**
  * Test for your storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    static final Storage ARRAY_STORAGE = new MapStorage();
+    static final Storage ARRAY_STORAGE = new MapStorageUiid();
 
     public static void main(String[] args) {
         Resume r1 = new Resume("uuid1");
