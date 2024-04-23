@@ -8,6 +8,19 @@ import java.util.Comparator;
 import java.util.List;
 
 public abstract class AbstractStorage implements Storage {
+    protected abstract void updateResume(Object searchKey, Resume resume);
+
+    protected abstract Resume getResume(Object searchKey);
+
+    protected abstract void insertResume(Object searchKey, Resume resume);
+
+    protected abstract void removeResume(Object searchKey);
+
+    protected abstract Object getSearchKey(String uuid);
+
+    protected abstract boolean isExisting(Object searchKey);
+    protected abstract List<Resume> getAll();
+
     @Override
     public final void save(Resume resume) {
         Object searchKey = getNotExistingSearchKey(resume.getUuid());
@@ -32,8 +45,6 @@ public abstract class AbstractStorage implements Storage {
         return getResume(searchKey);
     }
 
-    protected abstract boolean isExisting(Object searchKey);
-
     protected Object getExistingSearchKey(String uuid) {
         Object key = getSearchKey(uuid);
         if (!isExisting(key)) {
@@ -50,17 +61,17 @@ public abstract class AbstractStorage implements Storage {
         return key;
     }
 
-    protected List<Resume> sortFullNameAndUuid(List<Resume> resumes) {
-        resumes.sort(Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid));
-        return resumes;
+    @Override
+    public List<Resume> getAllSorted() {
+        List<Resume> list = getAll();
+        sortFullNameThenUuid(list);
+        return list;
     }
-    protected abstract void updateResume(Object searchKey, Resume resume);
 
-    protected abstract Resume getResume(Object searchKey);
 
-    protected abstract void insertResume(Object searchKey, Resume resume);
 
-    protected abstract void removeResume(Object searchKey);
+    protected void sortFullNameThenUuid(List<Resume> resumes) {
+        resumes.sort(Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid));
+    }
 
-    protected abstract Object getSearchKey(String uuid);
 }
