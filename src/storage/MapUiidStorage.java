@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MapStorageUiid extends AbstractStorage {
+public class MapUiidStorage extends AbstractStorage {
     protected final Map<String, Resume> storage = new HashMap<>();
 
     @Override

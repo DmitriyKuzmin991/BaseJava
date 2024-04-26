@@ -2,7 +2,7 @@ package storage;
 
 import model.Resume;
 
-public class MapStorageResume extends MapStorageUiid{
+public class MapStorageResume extends MapUiidStorage {
     @Override
     protected Object getSearchKey(String uuid) {
         return storage.get(uuid);
@@ -20,7 +20,7 @@ public class MapStorageResume extends MapStorageUiid{
 
     @Override
     protected void updateResume(Object searchKey, Resume resume) {
-        this.insertResume(searchKey,resume);
+        storage.put(resume.getUuid(), resume);
     }
 
     @Override
@@ -31,6 +31,6 @@ public class MapStorageResume extends MapStorageUiid{
     @Override
     protected void removeResume(Object searchKey) {
         Resume r = (Resume) searchKey;
-        storage.remove(r.getUuid(), r);
+        storage.remove(r.getUuid());
     }
 }
