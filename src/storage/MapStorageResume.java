@@ -14,7 +14,7 @@ public class MapStorageResume extends MapUiidStorage {
     }
 
     @Override
-    protected void insertResume(Object searchKey, Resume resume) {
+    protected void insertResume(Object uuid, Resume resume) {
         storage.put(resume.getUuid(), resume);
     }
 

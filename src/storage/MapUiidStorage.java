@@ -11,28 +11,28 @@ public class MapUiidStorage extends AbstractStorage {
     protected final Map<String, Resume> storage = new HashMap<>();
 
     @Override
-    protected boolean isExisting(Object searchKey) {
-        return storage.containsKey((String) searchKey);
+    protected boolean isExisting(Object uuid) {
+        return storage.containsKey((String) uuid);
     }
 
     @Override
-    protected void insertResume(Object searchKey, Resume resume) {
-        storage.put((String) searchKey, resume);
+    protected void insertResume(Object uuid, Resume resume) {
+        storage.put((String) uuid, resume);
     }
 
     @Override
-    protected void updateResume(Object searchKey, Resume resume) {
-        storage.put((String) searchKey, resume);
+    protected void updateResume(Object uuid, Resume resume) {
+        storage.put((String) uuid, resume);
     }
 
     @Override
-    protected Resume getResume(Object searchKey) {
-        return storage.get((String) searchKey);
+    protected Resume getResume(Object uuid) {
+        return storage.get((String) uuid);
     }
 
     @Override
-    protected void removeResume(Object searchKey) {
-        storage.remove((String) searchKey);
+    protected void removeResume(Object uuid) {
+        storage.remove((String) uuid);
     }
 
     @Override

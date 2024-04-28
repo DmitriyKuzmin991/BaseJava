@@ -4,6 +4,7 @@ import exception.ExistStorageException;
 import exception.NotExistStorageException;
 import model.Resume;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -68,7 +69,7 @@ public abstract class AbstractStorage implements Storage {
     @Override
     public List<Resume> getAllSorted() {
         List<Resume> list = getAll();
-        list.sort(SORTFULLNAMETHANUUID);
+        Collections.sort(list);
         return list;
     }
 }

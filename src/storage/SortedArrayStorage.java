@@ -3,6 +3,7 @@ package storage;
 import model.Resume;
 
 import java.util.Collections;
+import java.util.Comparator;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
@@ -27,6 +28,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
     protected Object getSearchKey(String uuid) {
         Resume keySearch = new Resume(uuid,"");
-        return Collections.binarySearch(getAll(),keySearch);
+        return Collections.binarySearch(getAll(),keySearch,
+                Comparator.comparing(Resume::getUuid));
     }
 }
