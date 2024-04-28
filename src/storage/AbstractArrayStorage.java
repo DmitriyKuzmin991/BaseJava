@@ -6,7 +6,7 @@ import model.Resume;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage  extends AbstractStorage <Integer>{
     protected static final int STORAGE_LIMIT = 10000;
 
     protected final Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -30,8 +30,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected final Resume getResume(Object keySearch) {
-        return storage[(int) keySearch];
+    protected final Resume getResume(Integer index) {
+        return storage[index];
     }
 
     @Override
@@ -40,12 +40,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected final void updateResume(Object keySearch, Resume resume) {
-        storage[(int) keySearch] = resume;
+    protected final void updateResume(Integer index, Resume resume) {
+        storage[index] = resume;
     }
 
     @Override
-    protected boolean isExisting(Object searchKey) {
-        return (int) searchKey > -1;
+    protected boolean isExisting(Integer index) {
+        return index > -1;
     }
 }

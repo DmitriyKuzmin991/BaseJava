@@ -5,7 +5,7 @@ import model.Resume;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListStorage extends AbstractStorage {
+public class ListStorage extends AbstractStorage <Integer>{
     private final List<Resume> storage = new ArrayList<>();
 
     @Override
@@ -19,8 +19,8 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume getResume(Object searchKey) {
-        return storage.get((int) searchKey);
+    protected Resume getResume(Integer index) {
+        return storage.get(index);
     }
 
     @Override
@@ -29,20 +29,20 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void insertResume(Object searchKey, Resume resume) {
+    protected void insertResume(Integer index, Resume resume) {
         storage.add(resume);
     }
 
     @Override
-    protected void removeResume(Object searchKey) {
-        storage.remove((int) searchKey);
+    protected void removeResume(Integer index) {
+        storage.remove(index.intValue());
     }
 
     @Override
-    protected Object getSearchKey(String uuid) {
+    protected Integer getSearchKey(String uuid) {
         for (int i = 0; i < size() ; i++) {
-            String correntUiid = storage.get(i).getUuid();
-            if (correntUiid.equals(uuid)) {
+            String currentUuid = storage.get(i).getUuid();
+            if (currentUuid.equals(uuid)) {
                 return i;
             }
         }
@@ -50,12 +50,12 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExisting(Object searchKey) {
-        return (int)searchKey > -1;
+    protected boolean isExisting(Integer index) {
+        return index > -1;
     }
 
     @Override
-    protected void updateResume(Object searchKey, Resume resume) {
-        storage.set((int) searchKey, resume);
+    protected void updateResume(Integer index, Resume resume) {
+        storage.set(index, resume);
     }
 }
