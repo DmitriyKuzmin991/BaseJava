@@ -8,15 +8,15 @@ import java.util.UUID;
  */
 public class Resume implements Comparable<Resume> {
     private final String uuid;
-    private String fullName;
-    public Resume() {
-        this("JohnSimple");
-    }
+    private final String fullName;
+
     public Resume(String fullName) {
-        this.uuid = (UUID.randomUUID().toString());
-        this.fullName = fullName;
+        this(UUID.randomUUID().toString(), fullName);
     }
+
     public Resume(String uuid, String fullName) {
+        Objects.requireNonNull(uuid, "uuid most not be null");
+        Objects.requireNonNull(fullName, "fullName most not be null");
         this.uuid = uuid;
         this.fullName = fullName;
     }
@@ -36,7 +36,7 @@ public class Resume implements Comparable<Resume> {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (getClass() != o.getClass()) return false;
         Resume resume = (Resume) o;
         return Objects.equals(uuid, resume.uuid) && Objects.equals(fullName, resume.fullName);
     }
@@ -48,14 +48,11 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public int compareTo(Resume r) {
-        return this.getUuid().compareTo(r.getUuid());
+        int cmp = this.fullName.compareTo(r.fullName);
+        return cmp != 0 ? cmp : this.getUuid().compareTo(r.getUuid());
     }
 
     public String getFullName() {
         return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 }
