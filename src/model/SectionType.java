@@ -1,8 +1,9 @@
 package model;
 
 public enum SectionType {
+
+    OBJECTIVE("Позиция"),
     PERSONAL("Личные качества"),
-    OBJECTIVE("Позоция"),
     ACHIEVEMENT("Достижения"),
     QUALIFICATIONS("Квалификация"),
     EXPERIENCE("Опыт работы"),
