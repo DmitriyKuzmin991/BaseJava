@@ -1,6 +1,9 @@
 package model;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Initial resume class
@@ -8,8 +11,8 @@ import java.util.*;
 public class Resume implements Comparable<Resume> {
     private final String uuid;
     private final String fullName;
-    private List<Contact> contacts;
-    private Map<SectionType, AbstractSection> resumeBody;
+    private Map<ContactType, String> contacts;
+    private Map<SectionType, AbstractSection> section;
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -20,26 +23,20 @@ public class Resume implements Comparable<Resume> {
         Objects.requireNonNull(fullName, "fullName most not be null");
         this.uuid = uuid;
         this.fullName = fullName;
-        resumeBody = new HashMap<>();
+        contacts = new HashMap<>();
+        section = new HashMap<>();
     }
 
-    public void setContacts(List<Contact> contacts) {
+    public void setContacts(Map<ContactType,String> contacts) {
         this.contacts = contacts;
     }
 
-    public List<Contact> getContacts() {
+    public Map<ContactType,String> getContacts() {
         return contacts;
     }
 
-    public void setBody(SectionType sectionType, AbstractSection section) {
-        this.resumeBody.put(sectionType, section);
-    }
-    public AbstractSection getSection(SectionType section) {
-        return resumeBody.get(section);
-    }
-
     public Map<SectionType, AbstractSection> getBody() {
-        return resumeBody;
+        return section;
     }
 
     public String getUuid() {
@@ -55,6 +52,8 @@ public class Resume implements Comparable<Resume> {
         return "Resume{" +
                 "uuid='" + uuid + '\'' +
                 ", fullName='" + fullName + '\'' +
+                ", contacts=" + contacts +
+                ", section=" + section +
                 '}';
     }
 
@@ -75,23 +74,5 @@ public class Resume implements Comparable<Resume> {
     public int compareTo(Resume r) {
         int cmp = this.fullName.compareTo(r.fullName);
         return cmp != 0 ? cmp : this.getUuid().compareTo(r.getUuid());
-    }
-
-
-    public void printResume() {
-        System.out.println(fullName);
-        for (Contact c : contacts) {
-            System.out.println(c);
-        }
-        System.out.println("===================================");
-        SectionType[] sectionTypeList = SectionType.values();
-        for (SectionType section : sectionTypeList) {
-            AbstractSection temp = resumeBody.get(section);
-            if (temp == null) continue;
-            System.out.println(section.getTitle());
-            System.out.println(temp);
-            System.out.println("+++++++++++++++++++++++++++");
-
-        }
     }
 }

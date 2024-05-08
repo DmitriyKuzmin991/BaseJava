@@ -2,34 +2,40 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CompanySection extends AbstractSection {
-    private List<Company> list;
+    private List<Company> companies;
 
     public CompanySection() {
-        this.list = new ArrayList<>();
-    }
-    public void addCompany(Company company) {
-        list.add(company);
-    }
-    public void removeCompany(Company company) {
-        list.remove(company);
+        this.companies = new ArrayList<>();
     }
 
-    public List<Company> getList() {
-        return list;
+    public List<Company> getCompanies() {
+        return companies;
     }
 
-    public void setList(List<Company> list) {
-        this.list = list;
+    public void setCompanies(List<Company> companies) {
+        this.companies = companies;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CompanySection that = (CompanySection) o;
+        return Objects.equals(companies, that.companies);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(companies);
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (Company comp : list) {
-            sb.append(comp).append("\n");
-        }
-        return sb.toString();
+        return "CompanySection{" +
+                "companies=" + companies +
+                '}';
     }
 }

@@ -1,22 +1,22 @@
 package model;
 
 public class TextSection extends AbstractSection{
-    private String sectionDescription;
+    private String text;
 
-    public TextSection(String sectionDescription) {
-        this.sectionDescription = sectionDescription;
+    public TextSection(String text) {
+        this.text = text;
     }
 
-    public String getSectionDescription() {
-        return sectionDescription;
+    public String getText() {
+        return text;
     }
 
-    public void setSectionDescription(String sectionDescription) {
-        this.sectionDescription = sectionDescription;
+    public void setText(String text) {
+        this.text = text;
     }
 
     @Override
     public String toString() {
-        return sectionDescription;
+        return text;
     }
 }
