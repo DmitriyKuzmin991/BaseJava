@@ -1,68 +1,57 @@
 package model;
 
-import java.util.List;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Company {
-    private String companyName;
-    private String website;
-    List<Period> periods;
+    private final Link homePage;
+    //    private final List<Period> periods;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
+    private final String title;
+    private final String description;
 
-    public Company(String companyName, String website, List<Period> periods) {
-        this.companyName = companyName;
-        this.website = website;
-        this.periods = periods;
+    public Company(String name, String url, LocalDate startDate, LocalDate endDate, String title, String description) {
+        Objects.requireNonNull(startDate, "startDate must not be null");
+        Objects.requireNonNull(endDate, "endDate must not be null");
+        Objects.requireNonNull(title, "title must not be null");
+        this.homePage = new Link(name, url);
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.title = title;
+        this.description = description;
     }
+//    public Company(String companyName, String website, List<Period> periods) {
+//        Objects.requireNonNull(companyName, "companyName must not be null");
+//        this.homePage = new Link(companyName, website);
+//        this.periods = periods;
+//    }
 
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String getWebsite() {
-        return website;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
-    public List<Period> getPeriods() {
-        return periods;
-    }
-
-    public void setPeriods(List<Period> periods) {
-        this.periods = periods;
-    }
+//    public List<Period> getPeriods() {
+//        return periods;
+//    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Company company = (Company) o;
-        return Objects.equals(companyName, company.companyName) && Objects.equals(website, company.website) && Objects.equals(periods, company.periods);
+        return Objects.equals(homePage, company.homePage) && Objects.equals(startDate, company.startDate) && Objects.equals(endDate, company.endDate) && Objects.equals(title, company.title) && Objects.equals(description, company.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(companyName, website, periods);
+        return Objects.hash(homePage, startDate, endDate, title, description);
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("\t");
-        sb.append(companyName);
-        sb.append("{");
-        sb.append(website);
-        sb.append("}");
-        sb.append("\n");
-        for (Period period : periods) {
-            sb.append(period);
-        }
-        return sb.toString();
+        return "Company{" +
+                "homePage=" + homePage +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

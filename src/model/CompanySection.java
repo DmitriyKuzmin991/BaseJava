@@ -1,22 +1,18 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class CompanySection extends AbstractSection {
-    private List<Company> companies;
+    private final List<Company> companies;
 
-    public CompanySection() {
-        this.companies = new ArrayList<>();
+    public CompanySection(List<Company> companies) {
+        Objects.requireNonNull(companies, "companies must not be null");
+        this.companies = companies;
     }
 
     public List<Company> getCompanies() {
         return companies;
-    }
-
-    public void setCompanies(List<Company> companies) {
-        this.companies = companies;
     }
 
     @Override

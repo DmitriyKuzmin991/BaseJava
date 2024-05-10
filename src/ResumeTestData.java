@@ -1,13 +1,7 @@
-import model.*;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
-
 public class ResumeTestData {
     public static void main(String[] args) {
-        Resume resume = new Resume("Григорий Кислин");
-        resume.getContacts().putAll(Map.of(ContactType.PHONENUMBER, "+7(921) 855-0482",
+       /* Resume resume = new Resume("Григорий Кислин");
+        resume.getContacts().putAll(Map.of(ContactType.PHONE, "+7(921) 855-0482",
                 ContactType.SKYPE, "grigory.kislin",
                 ContactType.EMAIL, "gkislin@yandex.ru",
                 ContactType.PROFILE, "LinkedIn",
@@ -113,6 +107,7 @@ public class ResumeTestData {
         ));
         body.put(SectionType.EDUCATION, companySectionEducation);
         System.out.println(resume);
+        */
 
     }
 }

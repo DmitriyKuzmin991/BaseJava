@@ -2,11 +2,15 @@ package model;
 
 public enum ContactType {
 
-    PHONENUMBER("Тел.:"),
+    PHONE("Тел.:"),
+    MOBILE("Мобильный:"),
+    HOME_PHONE("Мобильный:"),
+    SKYPE("skype:"),
     EMAIL("Почта:"),
-    PROFILE("Профиль:"),
-    HOMEPAGE("Домашняя страница:"),
-    SKYPE("skype:");
+    LINKEDIN("Профиль LinkedIn"),
+    GITHUB("Профиль Github"),
+    STACKOVERFLOW("Профиль Stackoverflow"),
+    HOMEPAGE("Домашняя страница:");
 
     private final String title;
 

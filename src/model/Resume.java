@@ -1,6 +1,6 @@
 package model;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -11,8 +11,8 @@ import java.util.UUID;
 public class Resume implements Comparable<Resume> {
     private final String uuid;
     private final String fullName;
-    private Map<ContactType, String> contacts;
-    private Map<SectionType, AbstractSection> section;
+    private Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    private final Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -23,20 +23,18 @@ public class Resume implements Comparable<Resume> {
         Objects.requireNonNull(fullName, "fullName most not be null");
         this.uuid = uuid;
         this.fullName = fullName;
-        contacts = new HashMap<>();
-        section = new HashMap<>();
     }
 
     public void setContacts(Map<ContactType,String> contacts) {
         this.contacts = contacts;
     }
 
-    public Map<ContactType,String> getContacts() {
-        return contacts;
+    public String getContact(ContactType type) {
+        return contacts.get(type);
     }
 
-    public Map<SectionType, AbstractSection> getBody() {
-        return section;
+    public AbstractSection getSections(SectionType type) {
+        return sections.get(type);
     }
 
     public String getUuid() {
@@ -53,7 +51,7 @@ public class Resume implements Comparable<Resume> {
                 "uuid='" + uuid + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", contacts=" + contacts +
-                ", section=" + section +
+                ", section=" + sections +
                 '}';
     }
 
