@@ -5,7 +5,6 @@ import java.util.Objects;
 
 public class Company {
     private final Link homePage;
-    //    private final List<Period> periods;
     private final LocalDate startDate;
     private final LocalDate endDate;
     private final String title;
@@ -21,15 +20,6 @@ public class Company {
         this.title = title;
         this.description = description;
     }
-//    public Company(String companyName, String website, List<Period> periods) {
-//        Objects.requireNonNull(companyName, "companyName must not be null");
-//        this.homePage = new Link(companyName, website);
-//        this.periods = periods;
-//    }
-
-//    public List<Period> getPeriods() {
-//        return periods;
-//    }
 
     @Override
     public boolean equals(Object o) {
