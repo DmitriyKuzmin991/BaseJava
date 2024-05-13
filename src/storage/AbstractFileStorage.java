@@ -5,13 +5,17 @@ import model.Resume;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 public abstract class AbstractFileStorage extends AbstractStorage<File> {
-    private File directory;
+    private final File directory;
 
     protected abstract void doWrite(Resume resume) throws IOException;
+
+    protected abstract Resume doRead(File file) throws IOException;
 
     protected AbstractFileStorage(File directory) {
         Objects.requireNonNull(directory, "directory most not be null");
@@ -26,12 +30,20 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected void updateResume(File file, Resume resume) {
-
+        try {
+            doWrite(resume);
+        } catch (IOException e) {
+            throw new StorageException("IO error", file.getName(), e);
+        }
     }
 
     @Override
     protected Resume getResume(File file) {
-        return null;
+        try {
+            return doRead(file);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -47,7 +59,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected void removeResume(File file) {
-
+        file.delete();
     }
 
     @Override
@@ -62,16 +74,38 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> getAll() {
-        return null;
+        File[] entries = directory.listFiles();
+        if (entries != null) {
+            List<Resume> result = new ArrayList<>();
+            for (File file : entries) {
+                try {
+                    result.add(doRead(file));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            return result;
+        } else {
+            return Collections.EMPTY_LIST;
+        }
     }
 
     @Override
     public void clear() {
-
+        File[] entry = directory.listFiles();
+        if (entry != null) {
+            for (File file : entry) {
+                file.delete();
+            }
+        }
     }
 
     @Override
     public int size() {
+        String[] list = directory.list();
+        if (list != null) {
+            return list.length;
+        }
         return 0;
     }
 }
