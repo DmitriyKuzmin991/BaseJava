@@ -1,4 +1,5 @@
 import java.io.File;
+import java.util.Objects;
 
 /**
  * gkislin
@@ -34,7 +35,7 @@ public class MainFile {
     private static void fileThree(File file) {
         if (file.isDirectory()) {
             System.out.println("directory : " + file.getName());
-            for (File item : file.listFiles()) {
+            for (File item : Objects.requireNonNull(file.listFiles())) {
                 System.out.print("-------------------");
                 fileThree(item);
             }
@@ -45,7 +46,7 @@ public class MainFile {
     private static void fileThree2(File file) {
         if (file.isDirectory()) {
             System.out.println("Directory : " + file.getName() );
-            for (String fileName : file.list()) {
+            for (String fileName : Objects.requireNonNull(file.list())) {
                 fileThree2(new File(file.getPath(), fileName));
             }
         } else {
