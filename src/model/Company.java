@@ -1,24 +1,24 @@
 package model;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Company {
     private final Link homePage;
-    private final LocalDate startDate;
-    private final LocalDate endDate;
-    private final String title;
-    private final String description;
+    private final List<Period> periods = new ArrayList<>();
 
-    public Company(String name, String url, LocalDate startDate, LocalDate endDate, String title, String description) {
-        Objects.requireNonNull(startDate, "startDate must not be null");
-        Objects.requireNonNull(endDate, "endDate must not be null");
-        Objects.requireNonNull(title, "title must not be null");
+    public Company(String name, String url, List<Period> list) {
         this.homePage = new Link(name, url);
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.title = title;
-        this.description = description;
+        periods.addAll(list);
+    }
+
+    public Link getHomePage() {
+        return homePage;
+    }
+
+    public List<Period> getPeriods() {
+        return periods;
     }
 
     @Override
@@ -26,22 +26,19 @@ public class Company {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Company company = (Company) o;
-        return Objects.equals(homePage, company.homePage) && Objects.equals(startDate, company.startDate) && Objects.equals(endDate, company.endDate) && Objects.equals(title, company.title) && Objects.equals(description, company.description);
+        return Objects.equals(homePage, company.homePage) && Objects.equals(periods, company.periods);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(homePage, startDate, endDate, title, description);
+        return Objects.hash(homePage, periods);
     }
 
     @Override
     public String toString() {
         return "Company{" +
                 "homePage=" + homePage +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
+                ", periods=" + periods +
                 '}';
     }
 }

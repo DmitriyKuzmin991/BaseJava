@@ -36,6 +36,9 @@ public class Resume implements Comparable<Resume> {
     public AbstractSection getSections(SectionType type) {
         return sections.get(type);
     }
+    public void setSections(SectionType type, AbstractSection section) {
+        sections.put(type, section);
+    }
 
     public String getUuid() {
         return uuid;
