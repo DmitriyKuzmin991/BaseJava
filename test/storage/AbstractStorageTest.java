@@ -6,6 +6,7 @@ import model.Resume;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import utils.ResumeTestData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,10 +21,10 @@ public abstract class AbstractStorageTest {
     protected static final String FULLNAME3 = "ArnoldAloisSchwarzenegger";
     protected static final String FULLNAME4 = "BruceLi";
 
-    protected static final Resume RESUME_1 = new Resume(FULLNAME1);
-    protected static final Resume RESUME_2 = new Resume(FULLNAME2);
-    protected static final Resume RESUME_3 = new Resume(FULLNAME3);
-    protected static final Resume RESUME_4 = new Resume(FULLNAME4);
+    protected static final Resume RESUME_1 = ResumeTestData.getTestResume("uuid1", FULLNAME1);
+    protected static final Resume RESUME_2 = ResumeTestData.getTestResume("uuid2", FULLNAME2);
+    protected static final Resume RESUME_3 = ResumeTestData.getTestResume("uuid3", FULLNAME3);
+    protected static final Resume RESUME_4 = ResumeTestData.getTestResume("uuid4", FULLNAME4);
 
     public AbstractStorageTest(Storage storage) {
         this.storage = storage;
