@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -6,7 +7,7 @@ import java.util.Objects;
  * 21.07.2016
  */
 public class MainFile {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 //        String filePath = ".\\.gitignore";
 //
 //        File file = new File(filePath);
@@ -16,8 +17,15 @@ public class MainFile {
 //            throw new RuntimeException("Error", e);
 //        }
 
-        File dir = new File("C:\\Users\\Dmitriy\\Documents\\Java\\basejava");
-        fileThree2(dir);
+//        File dir = new File("C:\\Users\\Dmitriy\\Documents\\Java\\basejava");
+        File dir2 = new File("C:\\Users\\Dmitriy\\Documents\\Java\\basejava\\test2");
+
+        for (int i = 0; i < 5; i++) {
+            File file = new File(dir2.getAbsolutePath(), ("newFile" + i + ".txt"));
+            file.createNewFile();
+        }
+
+//        fileThree2(dir);
 //        System.out.println(dir.isDirectory());
 //        String[] list = dir.list();
 //        if (list != null) {

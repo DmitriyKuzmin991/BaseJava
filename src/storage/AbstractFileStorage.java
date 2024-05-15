@@ -6,7 +6,6 @@ import model.Resume;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,6 +15,8 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     protected abstract void doWrite(Resume resume) throws IOException;
 
     protected abstract Resume doRead(File file) throws IOException;
+
+    protected abstract void doRemove(File file) throws IOException;
 
     protected AbstractFileStorage(File directory) {
         Objects.requireNonNull(directory, "directory most not be null");
@@ -59,8 +60,13 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected void removeResume(File file) {
-        file.delete();
+        try {
+            doRemove(file);
+        } catch (IOException e) {
+            throw new StorageException("removed error", file.getName(), e);
+        }
     }
+
 
     @Override
     protected File getSearchKey(String uuid) {
@@ -75,27 +81,25 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected List<Resume> getAll() {
         File[] entries = directory.listFiles();
-        if (entries != null) {
-            List<Resume> result = new ArrayList<>();
+        if (entries == null) {
+            throw new StorageException(directory.getAbsolutePath() + " не является папкой/нет доступа", "");
+        } else {
+            List<Resume> result = new ArrayList<>(entries.length);
             for (File file : entries) {
-                try {
-                    result.add(doRead(file));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                result.add(getResume(file));
             }
             return result;
-        } else {
-            return Collections.EMPTY_LIST;
         }
     }
 
     @Override
     public void clear() {
-        File[] entry = directory.listFiles();
-        if (entry != null) {
-            for (File file : entry) {
-                file.delete();
+        File[] entries = directory.listFiles();
+        if (entries == null) {
+            throw new StorageException(directory.getAbsolutePath() + " не является папкой/нет доступа", "");
+        } else {
+            for (File file : entries) {
+                removeResume(file);
             }
         }
     }
@@ -103,9 +107,10 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     public int size() {
         String[] list = directory.list();
-        if (list != null) {
+        if (list == null) {
+            throw new StorageException(directory.getAbsolutePath() + " не является папкой/нет доступа", "");
+        } else {
             return list.length;
         }
-        return 0;
     }
 }
