@@ -18,13 +18,6 @@ public class MainFile {
 //        }
 
 //        File dir = new File("C:\\Users\\Dmitriy\\Documents\\Java\\basejava");
-        File dir2 = new File("C:\\Users\\Dmitriy\\Documents\\Java\\basejava\\test2");
-
-        for (int i = 0; i < 5; i++) {
-            File file = new File(dir2.getAbsolutePath(), ("newFile" + i + ".txt"));
-            file.createNewFile();
-        }
-
 //        fileThree2(dir);
 //        System.out.println(dir.isDirectory());
 //        String[] list = dir.list();

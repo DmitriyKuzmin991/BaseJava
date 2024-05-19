@@ -57,7 +57,6 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         }
     }
 
-
     @Override
     protected void removeResume(File file) {
         try {
@@ -66,7 +65,6 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
             throw new StorageException("removed error", file.getName(), e);
         }
     }
-
 
     @Override
     protected File getSearchKey(String uuid) {
@@ -80,37 +78,34 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> getAll() {
-        File[] entries = directory.listFiles();
-        if (entries == null) {
-            throw new StorageException(directory.getAbsolutePath() + " не является папкой/нет доступа", "");
-        } else {
-            List<Resume> result = new ArrayList<>(entries.length);
-            for (File file : entries) {
-                result.add(getResume(file));
-            }
-            return result;
+        File[] entries = getCheckedListFiles();
+        List<Resume> result = new ArrayList<>(entries.length);
+        for (File file : entries) {
+            result.add(getResume(file));
         }
+        return result;
     }
 
     @Override
     public void clear() {
-        File[] entries = directory.listFiles();
-        if (entries == null) {
-            throw new StorageException(directory.getAbsolutePath() + " не является папкой/нет доступа", "");
-        } else {
-            for (File file : entries) {
-                removeResume(file);
-            }
+        File[] entries = getCheckedListFiles();
+        for (File file : entries) {
+            removeResume(file);
         }
     }
 
     @Override
     public int size() {
-        String[] list = directory.list();
-        if (list == null) {
+        File[] entries = getCheckedListFiles();
+        return entries.length;
+    }
+
+    private File[] getCheckedListFiles() {
+        File[] entries = directory.listFiles();
+        if (entries == null) {
             throw new StorageException(directory.getAbsolutePath() + " не является папкой/нет доступа", "");
-        } else {
-            return list.length;
         }
+        return entries;
     }
 }
+
