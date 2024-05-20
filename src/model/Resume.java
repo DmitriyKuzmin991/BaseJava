@@ -11,7 +11,7 @@ import java.util.UUID;
 public class Resume implements Comparable<Resume> {
     private final String uuid;
     private final String fullName;
-    private Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    private final Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
     private final Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
@@ -25,19 +25,20 @@ public class Resume implements Comparable<Resume> {
         this.fullName = fullName;
     }
 
-    public void setContacts(Map<ContactType,String> contacts) {
-        this.contacts = contacts;
+    public void addContact(ContactType type, String value) {
+        contacts.put(type, value);
     }
 
-    public String getContact(ContactType type) {
-        return contacts.get(type);
+    public void addSection(SectionType type, AbstractSection section) {
+        sections.put(type, section);
     }
 
     public AbstractSection getSections(SectionType type) {
         return sections.get(type);
     }
-    public void setSections(SectionType type, AbstractSection section) {
-        sections.put(type, section);
+
+    public String getContact(ContactType type) {
+        return contacts.get(type);
     }
 
     public String getUuid() {
